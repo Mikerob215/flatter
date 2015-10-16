@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-sm-4 col-sm-offset-4">
+    <div class="form-group">
+      <form action="/post" class="post" method="post">
+        <input autofocus="autofocus" class="form-control flat" id="progress-striped" name="content" placeholder="post" type="text">
+        <p class="help-block">Say something stupid to the whole world.</p>
+        <button class="btn btn-inverse" type="submit">submit</button>
+      </form>
+    </div>
+    <% puts @posts %>
+    <% @posts.last(10).each do |x| %>
+    <div class="row">
+
+      <div class="col-sm-3">
+        <ul>
+          <li>
+            <%= x[:post_content] %>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <% end %>
+
+  </div>
+</div>
