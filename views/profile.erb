@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-sm-4">
+    <h2>Profile</h2>
+    <ul class="list-group">
+      <li class="list-group-item">
+        Username:
+        <%= User.find_by(user_name: @profile).user_name %>
+      </li>
+      <li class="list-group-item">
+        Email:
+        <%= User.find_by(user_name: @profile).email %>
+      </li>
+      <li class="list-group-item">
+        Location:
+        <%= User.find_by(user_name: @profile).location %>
+      </li>
+      <li class="list-group-item">
+        About:
+        <%= User.find_by(user_name: @profile).about %>
+      </li>
+    </ul>
+  </div>
+  <div class="col-sm-4">
+    <h2>Followers</h2>
+    <ul class="list-group">
+      <% User.find_by(user_name: @profile).followers.all.each do |x|%>
+      <li class="list-group-item">
+        <a href="/<%= x.user_name %>"><%= x.user_name %></a>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="col-sm-4">
+    <ul class="list-group">
+      <h2>Following</h2>
+      <% User.find_by(user_name: @profile).followed.all.each do |t|%>
+      <li class="list-group-item">
+
+        <a href="/<%= t.user_name %>"><%= t.user_name %></a>
+      </li>
+      <%end %>
+    </ul>
+  </div>
+</div>

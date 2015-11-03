@@ -1,0 +1,18 @@
+body {
+  background-color: #ECF0F1;
+}
+.edit-uname, .changeemail, .changelocation, .changeabout, .changepassword, .deleteaccount{
+  opacity: 0.92;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  background-color: #2c3e50;
+  display: none;
+  padding-top: 200px;
+  padding-left: 500px;
+  padding-right: 500px;
+  color: white;
+}

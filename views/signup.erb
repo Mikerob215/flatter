@@ -1,14 +1,20 @@
 <div class="row">
-  <div class="col-sm-4">
-    <form class="form-group" action="/createuser" method="post">
-        <label for="newusername">Username:</label>
-        <input type="text" class="form-control flat" placeholder="username" name="newusername">
-        <label for="newuserpw">Password:</label>
-        <input type="password" class="form-control flat" placeholder="password" name="newuserpw">
-        <label for="newemail">E-mail:</label>
-        <input type="text" class="form-control flat" placeholder="email" name="newemail">
-        <button type="submit" class="btn btn-inverse">submit</button>
-
+  <div class="col-sm-4 col-sm-offset-4">
+    <form action="/createuser" class="form-group" method="post">
+      <label for="newusername">Username:</label>
+      <div class="input-group">
+        <span class="input-group-addon">@</span>
+        <input class="form-control flat" name="newusername" placeholder="username" type="text">
+      </div>
+      <label for="newuserpw">Password:</label>
+      <input class="form-control flat" name="newuserpw" placeholder="password" type="password">
+      <label for="location">Location:</label>
+      <input class="form-control flat" name="location" placeholder="location" type="text">
+      <label for="about">About:</label>
+      <input class="form-control flat" name="about" placeholder="about" type="text">
+      <label for="newemail">E-mail:</label>
+      <input class="form-control flat" name="newemail" placeholder="email" type="text">
+      <button class="btn btn-inverse" type="submit">submit</button>
     </form>
   </div>
 </div>

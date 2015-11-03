@@ -2,25 +2,158 @@
   <div class="col-sm-4 col-sm-offset-4">
     <div class="form-group">
       <form action="/post" class="post" method="post">
-        <input autofocus="autofocus" class="form-control flat" id="progress-striped" name="content" placeholder="post" type="text">
-        <p class="help-block">Say something stupid to the whole world.</p>
+        <input autofocus="autofocus" class="form-control flat text" id="progress-striped" name="content" placeholder="post" type="text" maxlength="150" required>
         <button class="btn btn-inverse" type="submit">submit</button>
+        <p class="help-block count">0 characters</p>
       </form>
     </div>
-    <% puts @posts %>
-    <% @posts.last(10).each do |x| %>
-    <div class="row">
-
-      <div class="col-sm-3">
-        <ul>
-          <li>
-            <%= x[:post_content] %>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <% end %>
-
   </div>
+</div>
+<div class="row text-center">
+  <div class="col-sm-4">
+    <h2>All flatts</h2>
+    <ul class="list-group">
+      <% Post.last(10).reverse.each do |x| %>
+      <li class="list-group-item">
+        <a href="/<%=User.find(x.user_id).user_name%>">@<span class="username"><%= User.find(x.user_id).user_name %></span>:
+        </a>
+        <%= x[:post_content] %>
+        <button type="button" class="btn btn-default btn-success follow">
+          Follow
+        </button>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="col-sm-4">
+    <h2>My feed</h2>
+    <ul class="list-group">
+      <% Post.where(user_id: current_user.followed).order(created_at: :desc).last(10).each do |t| %>
+      <li class="list-group-item">
+        <a href="/<%=User.find(t.user_id).user_name%>">
+          @<%= User.find(t.user_id).user_name %>:</a>
+        <%= t.post_content %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="col-sm-4">
+    <h2>My profile</h2>
+    <ul>
+      <ul class="list-group">
+        <li class="list-group-item">
+          Username:
+          <%= current_user.user_name %>
+          <button class="btn-xs btn btn-info edit-username">Edit</button>
+        </li>
+        <li class="list-group-item">
+          Email:
+          <%= current_user.email %>
+          <button class="btn-xs btn btn-info edit-email">Edit</button>
+        </li>
+        <li class="list-group-item">
+          Location:
+          <%= current_user.location %>
+          <button class="btn-xs btn btn-info edit-location">Edit</button>
+        </li>
+        <li class="list-group-item">
+          About:
+          <%= current_user.about %>
+          <button class="btn-xs btn btn-info edit-about">Edit</button>
+        </li>
+        <li class="list-group-item">
+          <button class="btn btn-xs btn-info edit-password" type="button">
+            Change Password
+          </button>
+          <button class="btn btn-xs btn-info delete-account" type="button">
+            Delete Account
+          </button>
+        </li>
+      </ul>
+  </ul>
+</div>
+</div>
+
+<div class="form-group edit-uname hideme">
+<form action="changeuser" class="changeuser" method="post">
+  <label for="">Change username</label>
+  <input class="form-control" name="newusername" placeholder="new username" type="text">
+  <p class="help-block">Enter username above.</p>
+  <button class="btn btn-primary" data-target="#" data-toggle="modal">
+    Change
+  </button>
+  <button class="btn btn-primary cancelme" data-target="#" data-toggle="modal">
+    Cancel
+  </button>
+</form>
+</div>
+
+<div class="form-group changeemail hideme">
+<form action="changeemail" class="changeemail" method="post">
+  <label for="">Change email</label>
+  <input class="form-control" name="newemail" placeholder="new email" type="text">
+  <p class="help-block">Enter new password above.</p>
+  <button class="btn btn-primary" data-target="#" data-toggle="modal">
+    Change
+  </button>
+  <button class="btn btn-primary cancelme" data-target="#" data-toggle="modal">
+    Cancel
+  </button>
+</form>
+</div>
+
+<div class="form-group changelocation hideme">
+<form action="changelocation" class="changelocation" method="post">
+  <label for="">Change email</label>
+  <input class="form-control" name="newlocation" placeholder="new location" type="text">
+  <p class="help-block">Enter new location above.</p>
+  <button class="btn btn-primary" data-target="#" data-toggle="modal">
+    Change
+  </button>
+  <button class="btn btn-primary cancelme" data-target="#" data-toggle="modal">
+    Cancel
+  </button>
+</form>
+</div>
+
+<div class="form-group changeabout hideme">
+<form action="changeabout" class="changeabout" method="post">
+  <label for="">About</label>
+  <input class="form-control" name="newabout" placeholder="about you...." type="text">
+  <p class="help-block">Enter new information.</p>
+  <button class="btn btn-primary" data-target="#" data-toggle="modal">
+    Change
+  </button>
+  <button class="btn btn-primary cancelme" data-target="#" data-toggle="modal">
+    Cancel
+  </button>
+</form>
+</div>
+
+<div class="form-group changepassword hideme">
+<form action="changepassword" class="changepassword" method="post">
+  <label for="">About</label>
+  <input class="form-control" name="newpassword" placeholder="new password" type="password">
+  <p class="help-block">Enter new password.</p>
+  <button class="btn btn-primary" data-target="#" data-toggle="modal">
+    Change
+  </button>
+  <button class="btn btn-primary cancelme" data-target="#" data-toggle="modal">
+    Cancel
+  </button>
+</form>
+</div>
+
+<div class="form-group deleteaccount hideme">
+<form action="deleteaccount" class="deleteaccount" method="post">
+  <label for="">Delete account</label>
+  <input class="form-control" name="yousure" placeholder="Are you sure?" type="text">
+  <p class="help-block">Type yes if you are sure you want to delete.</p>
+  <button class="btn btn-danger" data-target="#" data-toggle="modal">
+    Delete
+  </button>
+  <button class="btn btn-primary cancelme" data-target="#" data-toggle="modal">
+    Cancel
+  </button>
+</form>
 </div>
